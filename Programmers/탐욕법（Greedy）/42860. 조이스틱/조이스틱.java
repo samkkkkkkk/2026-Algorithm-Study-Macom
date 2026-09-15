@@ -18,6 +18,7 @@ class Solution {
         }
         
         answer += minMove;
+        
         return answer;
     }
 }
