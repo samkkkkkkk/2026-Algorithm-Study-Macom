@@ -1,36 +1,35 @@
-import java.util.Arrays;
 
 class Solution {
     public long solution(int n, int[] times) {
+        int minTime = times[0];
         
-        long minTime = Arrays.stream(times)
-                .min()
-                .getAsInt();
+        for (int i = 0; i < times.length; i++) {
+            if (times[i] < minTime) {
+                minTime = times[i];
+            }
+        }
         
-        long left = minTime;
-        long right = minTime * n;
-        long answer = right;
-
+        long right = (long) minTime * n;
+        long left = 1;
+        
         while (left <= right) {
             long mid = left + (right - left) / 2;
-            long count = 0;
-
-            for (int time : times) {
-                count += mid / time;
-
-                if (count >= n) {
-                    break;
-                }
+            long processed = 0;
+            
+            for (int i = 0; i < times.length; i++) {
+                processed += mid / times[i];
+                
+                if (processed >= n) break;
             }
-
-            if (count >= n) {
-                answer = mid;
+            
+            if (processed >= n) {
                 right = mid - 1;
             } else {
                 left = mid + 1;
             }
         }
-
-        return answer;
+        
+        return left;
+        
     }
 }
