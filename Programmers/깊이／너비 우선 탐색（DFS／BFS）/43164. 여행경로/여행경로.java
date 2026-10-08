@@ -7,19 +7,18 @@ import java.util.HashMap;
 
 class Solution {
     public String[] solution(String[][] tickets) {
-        
         Deque<String> stack = new ArrayDeque<>();
         Deque<String> route = new ArrayDeque<>();
         
         Map<String, PriorityQueue<String>> graph = new HashMap<>();
-    
+        
         for (String[] ticket : tickets) {
             graph.computeIfAbsent(
                 ticket[0],
                 k -> new PriorityQueue<>()
             ).offer(ticket[1]);
         }
-
+        
         stack.offerLast("ICN");
         
         while (!stack.isEmpty()) {
@@ -28,12 +27,12 @@ class Solution {
             
             if (nextAirports == null || nextAirports.isEmpty()) {
                 stack.pollLast();
-                route.offerFirst(current); 
+                route.offerFirst(current);
             } else {
                 stack.offerLast(nextAirports.poll());
             }
         }
         
         return route.toArray(new String[0]);
-    }
+    } 
 }
