@@ -1,11 +1,12 @@
 class Solution {
     public int solution(String name) {
         int n = name.length();
-        int minMove = n - 1;
         int answer = 0;
+        int minMove = n - 1;
         
         for (int i = 0; i < n; i++) {
-            answer += Math.min(name.charAt(i) - 'A', 'Z' - name.charAt(i) + 1);
+            char c = name.charAt(i);
+            answer += Math.min(c - 'A', 'Z' - c + 1);
             
             int next = i + 1;
             
@@ -14,11 +15,9 @@ class Solution {
                 next++;
             }
             
-            minMove = Math.min(minMove, Math.min(i * 2 + n - next, i + 2 * (n - next)));
+            minMove = Math.min(minMove, Math.min(2 * i + n - next, i + 2 * (n - next)));
         }
         
-        answer += minMove;
-        
-        return answer;
+        return answer + minMove;
     }
 }
